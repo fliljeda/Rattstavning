@@ -1,12 +1,11 @@
 /* Labb 2 i DD1352 Algoritmer, datastrukturer och komplexitet    */
 /* Se labbanvisning under kurswebben https://www.kth.se/social/course/DD1352 */
 /* Ursprunglig författare: Viggo Kann KTH viggo@nada.kth.se      */
-
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClosestWords {
-    LinkedList<String> closestWords = null;
+    List<String> closestWords = null;
 
     int closestDistance = -1;
 
@@ -39,7 +38,7 @@ public class ClosestWords {
             // System.out.println("d(" + w + "," + s + ")=" + dist);
             if (dist < closestDistance || closestDistance == -1) {
                 closestDistance = dist;
-                closestWords = new LinkedList<String>();
+                closestWords = new ArrayList<>();
                 closestWords.add(s);
             } else if (dist == closestDistance)
                 closestWords.add(s);
