@@ -2,10 +2,7 @@
 /* Se labbanvisning under kurswebben https://www.kth.se/social/course/DD1352 */
 /* Ursprunglig författare: Viggo Kann KTH viggo@nada.kth.se      */
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,11 +21,16 @@ public class Main {
     }
 
     public static void main(String args[]) throws IOException {
+
         long startTime = System.currentTimeMillis();
-        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
+
         // Säkrast att specificera att UTF-8 ska användas, för vissa system har annan
         // standardinställning för teckenkodningen.
-        List<String> wordList = readWordList(stdin);
+        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
+        BufferedReader ordlista = new BufferedReader(new FileReader("ordlista.txt"));
+        List<String> wordList = readWordList(ordlista);
+        System.out.println("enter word: ");
+
         String word;
         while ((word = stdin.readLine()) != null) {
             ClosestWords closestWords = new ClosestWords(word, wordList);

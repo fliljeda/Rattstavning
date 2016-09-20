@@ -35,7 +35,7 @@ public class ClosestWords {
     public ClosestWords(String w, List<String> wordList) {
         for (String s : wordList) {
             int dist = Distance(w, s);
-            // System.out.println("d(" + w + "," + s + ")=" + dist);
+            System.out.println("d(" + w + "," + s + ")=" + dist);
             if (dist < closestDistance || closestDistance == -1) {
                 closestDistance = dist;
                 closestWords = new ArrayList<>();
