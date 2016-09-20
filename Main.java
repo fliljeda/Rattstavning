@@ -13,14 +13,14 @@ import java.util.List;
 public class Main {
 
     public static List<String> readWordList(BufferedReader input) throws IOException {
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> wordList = new ArrayList<>(75000);
         while (true) {
             String s = input.readLine();
             if (s.equals("#"))
                 break;
-            list.add(s);
+            wordList.add(s);
         }
-        return list;
+        return wordList;
     }
 
     public static void main(String args[]) throws IOException {
