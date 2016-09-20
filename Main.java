@@ -29,16 +29,18 @@ public class Main {
         BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
         BufferedReader ordlista = new BufferedReader(new FileReader("ordlista.txt"));
         List<String> wordList = readWordList(ordlista);
-        System.out.println("enter word: ");
+        //String word;
+        //System.out.print("enter word: ");
+        //String word = stdin.readLine();
+        String word = "dabbbhud";
 
-        String word;
-        while ((word = stdin.readLine()) != null) {
-            ClosestWords closestWords = new ClosestWords(word, wordList);
-            System.out.print(word + " (" + closestWords.getMinDistance() + ")");
-            for (String w : closestWords.getClosestWords())
-                System.out.print(" " + w);
-            System.out.println();
-        }
+        //while ((word = stdin.readLine()) != null) {
+        ClosestWords closestWords = new ClosestWords(word, wordList);
+        System.out.print(word + " (" + closestWords.getMinDistance() + ")");
+        for (String w : closestWords.getClosestWords())
+            System.out.print(" " + w);
+        System.out.println();
+        //}
         long endTime = System.currentTimeMillis();
         System.out.println("CPU time: " + (endTime - startTime) + " ms");
     }
