@@ -6,27 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClosestWords {
-    List<String> closestWords = null;
+    private List<String> closestWords = null;
+    private int[] wordLetters = new int[256];
 
     int closestDistance = -1;
 
     int partDist(String w1, String w2) {
-
-//        int tempLen = Math.min(w1.length(), w2.length());
-//        int equalLetters = 0;
-//
-//        for (int i = 0; i < tempLen; i++) {
-//            if ((w1.charAt(i) == w2.charAt(i))) {
-//                equalLetters++;
-//            } else {
-//                break;
-//            }
-//        }
-//
-//        if (equalLetters > 0) {
-//            w1 = w1.substring(equalLetters);
-//            w2 = w2.substring(equalLetters);
-//        }
 
         int w1len = w1.length() + 1;
         int w2len = w2.length() + 1;
@@ -34,13 +19,11 @@ public class ClosestWords {
         // the array of distances
         int[] cost = new int[w1len];
         int[] newCost = new int[w1len];
-//        int match;
         int cost_replace;
         int cost_insert;
         int cost_delete;
         int[] swap;
-//        char[] w1buffer = w1.toCharArray();
-//        char[] w2buffer = w2.toCharArray();
+
         // initial cost of skipping prefix in String s0
         for (int i = 0; i < w1len; i++) cost[i] = i;
 
@@ -53,10 +36,8 @@ public class ClosestWords {
 
             // transformation cost for each letter in s0
             for (int i = 1; i < w1len; i++) {
-                // matching current letters in both strings
-//                match = (w1.charAt(i - 1) == w2.charAt(j - 1)) ? 0 : 1;
 
-//                if((w1buffer[i - 1] == w2buffer[j - 1])) {
+                // matching current letters in both strings
                 if((w1.charAt(i-1) == w2.charAt(j-1))) {
                     newCost[i] = cost[i - 1];
                 } else {
@@ -81,15 +62,17 @@ public class ClosestWords {
         return cost[w1len - 1];
     }
 
-//    int Distance(String w1, String w2) {
-//        return partDist(w1, w2);
-//    }
-
     public ClosestWords(String w, List<String> wordList) {
+
+        int wLen = w.length();
+        for (int i = 0; i < wLen; i++) {
+            wordLetters[w.charAt(i)] = 1;
+        }
 
         for (String s : wordList) {
 
-            if (closestDistance != -1 && Math.abs(s.length() - w.length()) > closestDistance)
+            if (closestDistance != -1 && (Math.abs(s.length() - w.length()) > closestDistance
+                    || getCommonChars(s) > closestDistance))
                 continue;
 
             int dist = partDist(w, s);
@@ -100,6 +83,17 @@ public class ClosestWords {
             } else if (dist == closestDistance)
                 closestWords.add(s);
         }
+    }
+
+    int getCommonChars(String s) {
+
+        int counter = 0;
+        int sLen = s.length();
+        for (int i = 0; i < sLen; i++) {
+            if(wordLetters[(int) s.charAt(i)] == 0)
+                counter++;
+        }
+        return counter;
     }
 
     int getMinDistance() {
