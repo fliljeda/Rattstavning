@@ -72,7 +72,7 @@ public class ClosestWords {
         for (String s : wordList) {
 
             if (closestDistance != -1 && (Math.abs(s.length() - w.length()) > closestDistance
-                    || getCommonChars(s) > closestDistance))
+                    || getAmountOfDiffChars(s) > closestDistance))
                 continue;
 
             int dist = partDist(w, s);
@@ -85,7 +85,7 @@ public class ClosestWords {
         }
     }
 
-    int getCommonChars(String s) {
+    int getAmountOfDiffChars(String s) {
 
         int counter = 0;
         int sLen = s.length();
