@@ -55,9 +55,7 @@ public class ClosestWords {
     }
 
     public ClosestWords(String w, List<String> wordList) {
-        float val = 0;
-        float counter = 0;
-        float printCounter = 0;
+
         for (String s : wordList) {
             int dist = Distance(w, s);
             //System.out.println("d(" + w + "," + s + ")=" + dist);
@@ -67,10 +65,6 @@ public class ClosestWords {
                 closestWords.add(s);
             } else if (dist == closestDistance)
                 closestWords.add(s);
-            val = counter++/wordList.size();
-            printCounter++;
-            if(printCounter%100 == 0)
-                System.out.printf("%.3f%%\n", val);
         }
     }
 
