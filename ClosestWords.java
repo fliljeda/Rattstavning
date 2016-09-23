@@ -34,7 +34,13 @@ public class ClosestWords {
         // the array of distances
         int[] cost = new int[w1len];
         int[] newCost = new int[w1len];
-
+        int match;
+        int cost_replace;
+        int cost_insert;
+        int cost_delete;
+        int[] swap;
+        char[] w1buffer = w1.toCharArray();
+        char[] w2buffer = w2.toCharArray();
         // initial cost of skipping prefix in String s0
         for (int i = 0; i < w1len; i++) cost[i] = i;
 
@@ -48,19 +54,25 @@ public class ClosestWords {
             // transformation cost for each letter in s0
             for (int i = 1; i < w1len; i++) {
                 // matching current letters in both strings
-                int match = (w1.charAt(i - 1) == w2.charAt(j - 1)) ? 0 : 1;
+//                match = (w1.charAt(i - 1) == w2.charAt(j - 1)) ? 0 : 1;
+
+//                if((w1buffer[i - 1] == w2buffer[j - 1])) {
+                if((w1.charAt(i-1) == w2.charAt(j-1))) {
+                    newCost[i] = cost[i - 1];
+                } else {
+                    cost_replace = cost[i - 1] + 1;
+                    cost_insert = cost[i] + 1;
+                    cost_delete = newCost[i - 1] + 1;
+                    newCost[i] = Math.min(Math.min(cost_insert, cost_delete),cost_replace);
+                }
 
                 // computing cost for each transformation
-                int cost_replace = cost[i - 1] + match;
-                int cost_insert = cost[i] + 1;
-                int cost_delete = newCost[i - 1] + 1;
-
+                //cost_replace = cost[i - 1] + match;
                 // keep minimum cost
-                newCost[i] = Math.min(Math.min(cost_insert, cost_delete), cost_replace);
             }
 
             // swap cost/newcost arrays
-            int[] swap = cost;
+            swap = cost;
             cost = newCost;
             newCost = swap;
         }
