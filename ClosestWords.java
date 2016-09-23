@@ -12,21 +12,21 @@ public class ClosestWords {
 
     int partDist(String w1, String w2) {
 
-        int tempLen = Math.min(w1.length(), w2.length());
-        int equalLetters = 0;
-
-        for (int i = 0; i < tempLen; i++) {
-            if ((w1.charAt(i) == w2.charAt(i))) {
-                equalLetters++;
-            } else {
-                break;
-            }
-        }
-
-        if (equalLetters > 0) {
-            w1 = w1.substring(equalLetters);
-            w2 = w2.substring(equalLetters);
-        }
+//        int tempLen = Math.min(w1.length(), w2.length());
+//        int equalLetters = 0;
+//
+//        for (int i = 0; i < tempLen; i++) {
+//            if ((w1.charAt(i) == w2.charAt(i))) {
+//                equalLetters++;
+//            } else {
+//                break;
+//            }
+//        }
+//
+//        if (equalLetters > 0) {
+//            w1 = w1.substring(equalLetters);
+//            w2 = w2.substring(equalLetters);
+//        }
 
         int w1len = w1.length() + 1;
         int w2len = w2.length() + 1;
@@ -34,13 +34,13 @@ public class ClosestWords {
         // the array of distances
         int[] cost = new int[w1len];
         int[] newCost = new int[w1len];
-        int match;
+//        int match;
         int cost_replace;
         int cost_insert;
         int cost_delete;
         int[] swap;
-        char[] w1buffer = w1.toCharArray();
-        char[] w2buffer = w2.toCharArray();
+//        char[] w1buffer = w1.toCharArray();
+//        char[] w2buffer = w2.toCharArray();
         // initial cost of skipping prefix in String s0
         for (int i = 0; i < w1len; i++) cost[i] = i;
 
@@ -93,7 +93,6 @@ public class ClosestWords {
                 continue;
 
             int dist = partDist(w, s);
-            //System.out.println("d(" + w + "," + s + ")=" + dist);
             if (dist < closestDistance || closestDistance == -1) {
                 closestDistance = dist;
                 closestWords = new ArrayList<String>();
