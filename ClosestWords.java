@@ -43,7 +43,7 @@ public class ClosestWords {
                 }
             }
 
-            // swap cost and newCost arrays
+            // swap cost and newCost
             temp = cost;
             cost = newCost;
             newCost = temp;
