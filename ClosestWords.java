@@ -24,26 +24,18 @@ public class ClosestWords {
         int cost_add;
         int cost_delete;
 
-        // initial cost for the first word (base case)
-        // used as 'previous row' in first case
-        for (int i = 0; i < w1len; i++)
+        for (int i = 0; i < w1len; i++) // initiate column
             cost[i] = i;
-
-        // dynamically computing the array of distances
-        // using two arrays one of which holds previous row
-        // and the other holds the current row
         for (int j = 1; j < w2len; j++) {
-            // initial cost for the second word (base case)
-            newCost[0] = j;
+            newCost[0] = j; // initiate row
 
-            // filling the current row with the help of
-            // base case and previous row
+            /*
+                calculate distance
+             */
             for (int i = 1; i < w1len; i++) {
-
-                // matching current letters in both strings
-                if ((w1.charAt(i - 1) == w2.charAt(j - 1))) {
+                if ((w1.charAt(i - 1) == w2.charAt(j - 1))) { // if two letters are equal then there no cost
                     newCost[i] = cost[i - 1];
-                } else {
+                } else { // if the two letters are unequal there is a cost
                     cost_modify = cost[i - 1] + 1;
                     cost_add = cost[i] + 1;
                     cost_delete = newCost[i - 1] + 1;
@@ -74,6 +66,7 @@ public class ClosestWords {
                 continue;
 
             int dist = partDist(w, s);
+
             if (dist < closestDistance) { // if (we find a word with a shorter distance then make a new list and add word)
                 closestDistance = dist;
                 closestWords = new ArrayList<String>(100);
