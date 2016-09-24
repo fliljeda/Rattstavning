@@ -17,7 +17,6 @@ public class ClosestWords {
         int w1len = w1.length() + 1;
         int w2len = w2.length() + 1;
 
-        // the array of distances
         int[] cost = new int[w1len];
         int[] newCost = new int[w1len];
         int[] temp;
@@ -27,7 +26,8 @@ public class ClosestWords {
 
         // initial cost for the first word (base case)
         // used as 'previous row' in first case
-        for (int i = 0; i < w1len; i++) cost[i] = i;
+        for (int i = 0; i < w1len; i++)
+            cost[i] = i;
 
         // dynamically computing the array of distances
         // using two arrays one of which holds previous row
@@ -56,7 +56,6 @@ public class ClosestWords {
             cost = newCost;
             newCost = temp;
         }
-
         return cost[w1len - 1];
     }
 
@@ -69,15 +68,17 @@ public class ClosestWords {
 
         for (String s : wordList) {
 
+            // if (the difference in length between the two words are greater then the current closest distance)
+            // or if (the number of different characters are greater then the current closest distance) then continue
             if ((Math.abs(s.length() - w.length()) > closestDistance || getNumberOfDifferentCharacters(s) > closestDistance))
                 continue;
 
             int dist = partDist(w, s);
-            if (dist < closestDistance || closestDistance == -1) {
+            if (dist < closestDistance) { // if (we find a word with a shorter distance then make a new list and add word)
                 closestDistance = dist;
-                closestWords = new ArrayList<String>();
+                closestWords = new ArrayList<String>(100);
                 closestWords.add(s);
-            } else if (dist == closestDistance)
+            } else if (dist == closestDistance) // if (the word is equal in distance) then add to existing list
                 closestWords.add(s);
         }
     }
