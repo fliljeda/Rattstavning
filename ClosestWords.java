@@ -19,22 +19,24 @@ public class ClosestWords {
         // the array of distances
         int[] cost = new int[w1len];
         int[] newCost = new int[w1len];
+        int[] swap;
         int cost_replace;
         int cost_insert;
         int cost_delete;
-        int[] swap;
 
-        // initial cost of skipping prefix in String s0
+        // initial cost for the first word (base case)
+        // used as 'previous row' in first case
         for (int i = 0; i < w1len; i++) cost[i] = i;
 
         // dynamically computing the array of distances
-
-        // transformation cost for each letter in s1
+        // using two arrays one of which holds previous row
+        // and the other holds the current row
         for (int j = 1; j < w2len; j++) {
-            // initial cost of skipping prefix in String s1
+            // initial cost for the second word (base case)
             newCost[0] = j;
 
-            // transformation cost for each letter in s0
+            // filling the current row with the help of
+            // base case and previous row
             for (int i = 1; i < w1len; i++) {
 
                 // matching current letters in both strings
