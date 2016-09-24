@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClosestWords {
+
     private List<String> closestWords = null;
     private int[] wordLetters = new int[256];
 
-    int closestDistance = -1;
+    int closestDistance = Integer.MAX_VALUE;
 
     int partDist(String w1, String w2) {
 
@@ -19,9 +20,9 @@ public class ClosestWords {
         // the array of distances
         int[] cost = new int[w1len];
         int[] newCost = new int[w1len];
-        int[] swap;
-        int cost_replace;
-        int cost_insert;
+        int[] temp;
+        int cost_modify;
+        int cost_add;
         int cost_delete;
 
         // initial cost for the first word (base case)
@@ -40,27 +41,22 @@ public class ClosestWords {
             for (int i = 1; i < w1len; i++) {
 
                 // matching current letters in both strings
-                if((w1.charAt(i-1) == w2.charAt(j-1))) {
+                if ((w1.charAt(i - 1) == w2.charAt(j - 1))) {
                     newCost[i] = cost[i - 1];
                 } else {
-                    cost_replace = cost[i - 1] + 1;
-                    cost_insert = cost[i] + 1;
+                    cost_modify = cost[i - 1] + 1;
+                    cost_add = cost[i] + 1;
                     cost_delete = newCost[i - 1] + 1;
-                    newCost[i] = Math.min(Math.min(cost_insert, cost_delete),cost_replace);
+                    newCost[i] = Math.min(Math.min(cost_add, cost_delete), cost_modify);
                 }
-
-                // computing cost for each transformation
-                //cost_replace = cost[i - 1] + match;
-                // keep minimum cost
             }
 
-            // swap cost/newcost arrays
-            swap = cost;
+            // swap cost and newCost arrays
+            temp = cost;
             cost = newCost;
-            newCost = swap;
+            newCost = temp;
         }
 
-        // the distance is the cost for transforming all letters in both strings
         return cost[w1len - 1];
     }
 
@@ -73,8 +69,7 @@ public class ClosestWords {
 
         for (String s : wordList) {
 
-            if (closestDistance != -1 && (Math.abs(s.length() - w.length()) > closestDistance
-                    || getAmountOfDiffChars(s) > closestDistance))
+            if ((Math.abs(s.length() - w.length()) > closestDistance || getNumberOfDifferentCharacters(s) > closestDistance))
                 continue;
 
             int dist = partDist(w, s);
@@ -87,12 +82,12 @@ public class ClosestWords {
         }
     }
 
-    int getAmountOfDiffChars(String s) {
+    int getNumberOfDifferentCharacters(String s) {
 
         int counter = 0;
         int sLen = s.length();
         for (int i = 0; i < sLen; i++) {
-            if(wordLetters[(int) s.charAt(i)] == 0)
+            if (wordLetters[(int) s.charAt(i)] == 0)
                 counter++;
         }
         return counter;
