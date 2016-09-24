@@ -24,10 +24,11 @@ public class ClosestWords {
         int cost_add;
         int cost_delete;
 
-        for (int i = 0; i < w1len; i++) // initiate column
+        for (int i = 0; i < w1len; i++) // initiate for first iteration
             cost[i] = i;
+
         for (int j = 1; j < w2len; j++) {
-            newCost[0] = j; // initiate row
+            newCost[0] = j; // initiate first element
 
             /*
                 calculate distance
